@@ -10,7 +10,8 @@ namespace Clustering {
         double *values; // values of the point's dimensions
 
     public:
-        Point(int);
+        Point(int) { }
+
         Point(int, double *);
 
         // Big three: cpy ctor, overloaded operator=, dtor
@@ -53,8 +54,6 @@ namespace Clustering {
         friend std::ostream &operator<<(std::ostream &, const Point &);
         friend std::istream &operator>>(std::istream &, Point &);
 
-    private:
-        int dim1;
     };
 
 }
