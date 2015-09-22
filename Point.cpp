@@ -3,13 +3,15 @@
 //
 
 #include "Point.h"
+#include <cmath>
 
 Clustering::Point::Point(int i) {
-
+    dim = 0;
 }
 
 Clustering::Point::Point(int i, double *pDouble) {
-
+    dim = i;
+    *values = *pDouble;
 }
 
 Clustering::Point::Point(const Clustering::Point &point) {
@@ -17,7 +19,7 @@ Clustering::Point::Point(const Clustering::Point &point) {
 }
 
 Clustering::Point &Clustering::Point::operator=(const Clustering::Point &point) {
-    return <#initializer#>;
+    return *values;
 }
 
 Clustering::Point::~Point() {
@@ -25,81 +27,90 @@ Clustering::Point::~Point() {
 }
 
 void Clustering::Point::setValue(int i, double d) {
-
+    dim = i;
+    *values = d;
 }
 
 double Clustering::Point::getValue(int i) const {
-    return 0;
+    return i;
 }
 
 double Clustering::Point::distanceTo(const Clustering::Point &point) const {
-    return 0;
+    return sqrt(pow(point.getValue(*values)-(dim),2));
 }
 
 Clustering::Point &Clustering::Point::operator*=(double d) {
-    return <#initializer#>;
+    return d *= 2;
 }
 
 Clustering::Point &Clustering::Point::operator/=(double d) {
-    return <#initializer#>;
+    return d /= 2.0;
 }
 
 const Clustering::Point Clustering::Point::operator*(double d) const {
-    return Clustering::Point(0);
+    d = d*3;
+    return d;
 }
 
 const Clustering::Point Clustering::Point::operator/(double d) const {
-    return Clustering::Point(0);
+    d = d/2;
+    return d;
 }
 
-Clustering::Point &Clustering::operator+=(Clustering::Point &point, const Clustering::Point &point1) {
-    return <#initializer#>;
+friend Clustering::Point &Clustering::operator+=(Clustering::Point &point, const Clustering::Point &point1) {
+    point += point1;
+    return point;
 }
 
-Clustering::Point &Clustering::operator-=(Clustering::Point &point, const Clustering::Point &point1) {
-    return <#initializer#>;
+friend Clustering::Point &Clustering::operator-=(Clustering::Point &point, const Clustering::Point &point1) {
+    point -= point1;
+    return point;
+
 }
 
-const Clustering::Point Clustering::operator+(const Clustering::Point &point, const Clustering::Point &point1) {
-    return Clustering::Point(0);
+friend const Clustering::Point Clustering::operator+(const Clustering::Point &point, const Clustering::Point &point1) {
+    return point + point1;
+
 }
 
-const Clustering::Point Clustering::operator-(const Clustering::Point &point, const Clustering::Point &point1) {
-    return Clustering::Point(0);
-}
-
-
-
-bool Clustering::operator==(const Clustering::Point &point, const Clustering::Point &point1) {
-    return false;
-}
-
-bool Clustering::operator!=(const Clustering::Point &point, const Clustering::Point &point1) {
-    return false;
+friend const Clustering::Point Clustering::operator-(const Clustering::Point &point, const Clustering::Point &point1) {
+    return point - point1;
 }
 
 
 
-bool Clustering::operator<(const Clustering::Point &point, const Clustering::Point &point1) {
-    return false;
+friend bool Clustering::operator==(const Clustering::Point &point, const Clustering::Point &point1) {
+    return point == point1;
 }
 
-bool Clustering::operator>(const Clustering::Point &point, const Clustering::Point &point1) {
-    return false;
+friend bool Clustering::operator!=(const Clustering::Point &point, const Clustering::Point &point1) {
+    return !(point == point1);
 }
 
-bool Clustering::operator<=(const Clustering::Point &point, const Clustering::Point &point1) {
-    return false;
+
+
+friend bool Clustering::operator<(const Clustering::Point &point, const Clustering::Point &point1) {
+    return point < point1;
 }
 
-bool Clustering::operator>=(const Clustering::Point &point, const Clustering::Point &point1) {
-    return false;
+friend bool Clustering::operator>(const Clustering::Point &point, const Clustering::Point &point1) {
+    return point > point1;
 }
 
-std::ostream &Clustering::operator<<(std::ostream &ostream, const Clustering::Point &point) {
-    return <#initializer#>;
+friend bool Clustering::operator<=(const Clustering::Point &point, const Clustering::Point &point1) {
+    return point <= point1;
 }
 
-std::istream &Clustering::operator>>(std::istream &istream, Clustering::Point &point) {
-    return <#initializer#>;
+friend bool Clustering::operator>=(const Clustering::Point &point, const Clustering::Point &point1) {
+    return point >= point1;
+}
+
+friend std::ostream &Clustering::operator<<(std::ostream &ostream, const Clustering::Point &point) {
+    ostream << point;
+    return ostream;
+}
+
+friend std::istream &Clustering::operator>>(std::istream &istream, Clustering::Point &point) {
+    istream >> point;
+    return istream;
 }
